@@ -12,6 +12,7 @@ import session from "express-session";
 import DutyApproval from "./models/approval.js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import morgan from "morgan";
 dotenv.config();
 
 const app = express();
@@ -21,6 +22,13 @@ app.use(
     methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
+);
+
+morgan.token("req-body", (req) => JSON.stringify(req.body));
+app.use(
+  morgan(
+    ":method :url :status :res[content-length] - :response-time ms :req-body"
+  )
 );
 app.use(
   session({
@@ -309,7 +317,7 @@ app.get("/dept/view", (req, res) => {
 app.post("/room/add", async (req, res) => {
   try {
     // Check if the room already exists
-    const existingRoom = await RoomModel.findOne({ name: req.body.name });
+    const existingRoom = await RoomModel.findOne({ roomname: req.body.name });
     if (existingRoom) {
       return res.status(400).json({ error: "Room already exists" });
     }
