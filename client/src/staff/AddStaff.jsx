@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 
 function AddStaff() {
   const [deptList, setDeptList] = useState([]);
-  const [dept, setDept] = useState("");
-  const [showOptions, setShowOptions] = useState(false);
   const {
     register,
     handleSubmit,
