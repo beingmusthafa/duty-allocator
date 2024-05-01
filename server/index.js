@@ -31,15 +31,18 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-mongoose.connect(process.env.DB_LINK);
+mongoose
+  .connect(process.env.DB_LINK)
+  .then(() => console.log("MongoDB connected"))
+  .catch((error) => console.log(error));
 
 const transporter = nodemailer.createTransport({
   host: "smtp-mail.outlook.com",
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: "jeevan8707@outlook.com",
-    pass: "J1234567*",
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 });
 
