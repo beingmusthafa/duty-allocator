@@ -51,7 +51,6 @@
 //                 </div>
 //             ))}
 
-
 //         </div>
 //     );
 // }
@@ -118,82 +117,90 @@
 //                 </div>
 //             ))}
 
-
 //         </div>
 //     );
 // }
 
 // export default ViewApprovedHod;
 
-
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    Typography,
-    Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+  Button,
 } from "@material-tailwind/react";
 
 function ViewApproved() {
-    const [requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState([]);
 
-    useEffect(() => {
-        fetchRequests();
-    }, []);
+  useEffect(() => {
+    fetchRequests();
+  }, []);
 
-    const fetchRequests = async () => {
-        try {
-            const response = await axios.get('http://localhost:3000/view/approved');
-            setRequests(response.data);
-            console.log(response.data)
-        } catch (error) {
-            console.error('Error fetching duty requests:', error);
-        }
-    };
-    
-    return (
-        <div className="container mt-5 ">
-            <h2 className="text-center mb-4">Approved Requests</h2>
-            {requests.map(request => (
-                <Card key={request._id} className="w-full max-w-[48rem] flex-row mb-4  shadow-md" style={{marginLeft:"20%"}}>
-                    <CardHeader
-                        shadow={false}
-                        floated={false}
-                        className="m-0 w-2/5 shrink-0 rounded-r-none flex flex-col items-center justify-center bg-black bg-opacity-9 text-white"
-                    >
-                        <Typography variant="h6" color="white" className="mb-2 uppercase">
-                            Duty Assigned to
-                        </Typography>
-                        <ul className="list-disc pl-6 text-left">
-                            {request.selectedTeachers.map((teacher, index) => (
-                                <li key={index} className="text-white">{teacher.fName} {teacher.lName}</li>
-                            ))}
-                        </ul>
-                    </CardHeader>
-                    <CardBody>
-                        <Typography variant="h6" color="gray" className="mb-4 uppercase">
-                            Exam Details
-                        </Typography>
-                        <Typography variant="h4" color="blue-gray" className="mb-2 uppercase">
-                            {request.examName}
-                        </Typography>
-                        <Typography color="gray" className="mb-2">
-                            Exam Hall: {request.hall}
-                        </Typography>
-                        <Typography color="gray" className="mb-2">
-                            Exam Date: {request.date}
-                        </Typography>
-                        <Typography color="gray" className="mb-2">
-                            Exam Time: {request.time}
-                        </Typography>
-                        <Typography color="gray" className="mb-2">
-                            Approved By: {request.hodFirstName} {request.hodLastName}
-                        </Typography>
-                        
-                        {/* <a href="#" className="inline-block">
+  const fetchRequests = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/view/approved");
+      setRequests(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching duty requests:", error);
+    }
+  };
+
+  return (
+    <div className="container mt-5 ">
+      <h2 className="text-center mb-4">Approved Requests</h2>
+      {requests.length > 0 ? (
+        requests.map((request) => (
+          <Card
+            key={request._id}
+            className="w-full max-w-[48rem] flex-row mb-4  shadow-md"
+            style={{ marginLeft: "20%" }}
+          >
+            <CardHeader
+              shadow={false}
+              floated={false}
+              className="m-0 w-2/5 shrink-0 rounded-r-none flex flex-col items-center justify-center bg-black bg-opacity-9 text-white"
+            >
+              <Typography variant="h6" color="white" className="mb-2 uppercase">
+                Duty Assigned to
+              </Typography>
+              <ul className="list-disc pl-6 text-left">
+                {request.selectedTeachers.map((teacher, index) => (
+                  <li key={index} className="text-white">
+                    {teacher.fName} {teacher.lName}
+                  </li>
+                ))}
+              </ul>
+            </CardHeader>
+            <CardBody>
+              <Typography variant="h6" color="gray" className="mb-4 uppercase">
+                Exam Details
+              </Typography>
+              <Typography
+                variant="h4"
+                color="blue-gray"
+                className="mb-2 uppercase"
+              >
+                {request.examName}
+              </Typography>
+              <Typography color="gray" className="mb-2">
+                Exam Hall: {request.hall}
+              </Typography>
+              <Typography color="gray" className="mb-2">
+                Exam Date: {request.date}
+              </Typography>
+              <Typography color="gray" className="mb-2">
+                Exam Time: {request.time}
+              </Typography>
+              <Typography color="gray" className="mb-2">
+                Approved By: {request.hodFirstName} {request.hodLastName}
+              </Typography>
+
+              {/* <a href="#" className="inline-block">
                             <Button variant="text" className="flex items-center gap-2">
                                 Learn More
                                 <svg
@@ -212,11 +219,16 @@ function ViewApproved() {
                                 </svg>
                             </Button>
                         </a> */}
-                    </CardBody>
-                </Card>
-            ))}
-        </div>
-    );
+            </CardBody>
+          </Card>
+        ))
+      ) : (
+        <h1 className="text-center mt-[25vh] uppercase font-bold text-xl text-gray-600">
+          No Approved Requests
+        </h1>
+      )}
+    </div>
+  );
 }
 
 export default ViewApproved;

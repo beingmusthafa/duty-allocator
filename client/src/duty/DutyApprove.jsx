@@ -139,7 +139,7 @@ function DutyApprove() {
         {pendingRequests.length > 0 ? (
           renderRequests(pendingRequests)
         ) : (
-          <h1 className="text-center mt-[25vh] uppercase font-bold text-xl text-gray-400">
+          <h1 className="text-center mt-[25vh] uppercase font-bold text-xl text-gray-600">
             No Pending Requests
           </h1>
         )}
