@@ -33,9 +33,9 @@ function Login() {
           sessionStorage.setItem("lName", res.data.lName);
           sessionStorage.setItem("email", res.data.email);
           sessionStorage.setItem("id", res.data.id);
-          if (res.data.role === "admin") {
+          if (res.data.designation === "admin") {
             navigate("/view/admin/approved");
-          } else if (res.data.role === "hod") {
+          } else if (res.data.designation === "hod") {
             navigate("/duty/approve");
           } else {
             navigate("/");

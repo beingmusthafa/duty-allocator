@@ -151,7 +151,7 @@ const verifyHod = (req, res, next) => {
       if (err) {
         return res.json("error with token");
       } else {
-        if (decoded.role === "hod") {
+        if (decoded.designation === "hod") {
           next();
         } else {
           return res.json("not hod");
@@ -174,7 +174,7 @@ const verifyAdmin = (req, res, next) => {
       if (err) {
         return res.json("error with token");
       } else {
-        if (decoded.role === "admin") {
+        if (decoded.designation === "admin") {
           next();
         } else {
           return res.json("not admin");
@@ -195,7 +195,7 @@ app.post("/login", (req, res) => {
       bcrypt.compare(password, user.password, (err, response) => {
         if (response) {
           const token = jwt.sign(
-            { email: user.email, role: user.role },
+            { email: user.email, designation: user.designation },
             "My-Secret-Key",
             { expiresIn: "1d" }
           );
@@ -208,7 +208,7 @@ app.post("/login", (req, res) => {
           return res.json({
             Status: "Success",
             id: user._id,
-            role: user.role,
+            designation: user.designation,
             department: user.dept,
             email: user.email,
             fName: user.fName,

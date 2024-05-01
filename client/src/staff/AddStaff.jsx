@@ -31,7 +31,6 @@ function AddStaff() {
 
   const onSubmit = async (data) => {
     const { fName, lName, phNumber, email, password, designation, dept } = data;
-    const role = designation === "invigilator" ? "staff" : "hod";
     try {
       await axios.post("http://localhost:3000/staff/add", {
         fName,
@@ -41,7 +40,6 @@ function AddStaff() {
         password,
         designation,
         dept,
-        role,
       });
 
       toast.success("Staff added successfully");

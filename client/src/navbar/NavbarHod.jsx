@@ -25,7 +25,7 @@
 //                 <a className="nav-link active" aria-current="page" href="/">Home</a>
 //               </li>
 //               <li className="nav-item dropdown">
-//                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                 <a className="nav-link dropdown-toggle" designation="button" data-bs-toggle="dropdown" aria-expanded="false">
 //                   Duty
 //                 </a>
 //                 <ul className="dropdown-menu">
@@ -50,14 +50,29 @@
 // export default NavbarHod;
 
 import React from "react";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import {
-  Navbar, Collapse, Typography, Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Card, IconButton,
+  Navbar,
+  Collapse,
+  Typography,
+  Button,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+  Card,
+  IconButton,
 } from "@material-tailwind/react";
 import {
-  ChevronDownIcon, Cog6ToothIcon, PowerIcon, KeyIcon, Bars2Icon, ShieldExclamationIcon, ShieldCheckIcon,
-
+  ChevronDownIcon,
+  Cog6ToothIcon,
+  PowerIcon,
+  KeyIcon,
+  Bars2Icon,
+  ShieldExclamationIcon,
+  ShieldCheckIcon,
 } from "@heroicons/react/24/solid";
 
 // profile menu component
@@ -117,8 +132,9 @@ function ProfileMenu() {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-              }`}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
           />
         </Button>
       </MenuHandler>
@@ -132,10 +148,11 @@ function ProfileMenu() {
                 handleMenuAction({ route, action });
                 closeMenu();
               }}
-              className={`flex items-center gap-2 rounded ${isLastItem
-                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                : ""
-                }`}
+              className={`flex items-center gap-2 rounded ${
+                isLastItem
+                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                  : ""
+              }`}
             >
               {React.createElement(icon, {
                 className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
@@ -157,25 +174,20 @@ function ProfileMenu() {
   );
 }
 
-
 function NavListMenu() {
-  return (
-    <React.Fragment>
-
-    </React.Fragment>
-  );
+  return <React.Fragment></React.Fragment>;
 }
 
 const navListItems = [
   {
     label: "Pending Request",
     icon: ShieldExclamationIcon,
-    route: "/duty/approve"
+    route: "/duty/approve",
   },
   {
     label: "Approved Request",
     icon: ShieldCheckIcon,
-    route: "/view/hod/approved"
+    route: "/view/hod/approved",
   },
 ];
 
@@ -216,7 +228,7 @@ export function NavbarHod() {
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false),
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
 

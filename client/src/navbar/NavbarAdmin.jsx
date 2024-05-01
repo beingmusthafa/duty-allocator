@@ -24,7 +24,7 @@
 //                 <a className="nav-link active" aria-current="page" href="/">Home</a>
 //               </li>
 //               <li className="nav-item dropdown">
-//                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                 <a className="nav-link dropdown-toggle" designation="button" data-bs-toggle="dropdown" aria-expanded="false">
 //                   Staff
 //                 </a>
 //                 <ul className="dropdown-menu">
@@ -34,7 +34,7 @@
 //                 </ul>
 //               </li>
 //               <li className="nav-item dropdown">
-//                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                 <a className="nav-link dropdown-toggle" designation="button" data-bs-toggle="dropdown" aria-expanded="false">
 //                   Department
 //                 </a>
 //                 <ul className="dropdown-menu">
@@ -44,7 +44,7 @@
 //                 </ul>
 //               </li>
 //               <li className="nav-item dropdown">
-//                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                 <a className="nav-link dropdown-toggle" designation="button" data-bs-toggle="dropdown" aria-expanded="false">
 //                   Rooms
 //                 </a>
 //                 <ul className="dropdown-menu">
@@ -54,7 +54,7 @@
 //                 </ul>
 //               </li>
 //               <li className="nav-item dropdown">
-//                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                 <a className="nav-link dropdown-toggle" designation="button" data-bs-toggle="dropdown" aria-expanded="false">
 //                   Duty
 //                 </a>
 //                 <ul className="dropdown-menu">
@@ -78,18 +78,31 @@
 
 // export default NavbarAdmin;
 
-
 import React from "react";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import {
-  Navbar, Collapse, Typography, Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Card, IconButton,
+  Navbar,
+  Collapse,
+  Typography,
+  Button,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+  Card,
+  IconButton,
 } from "@material-tailwind/react";
 import {
-  ChevronDownIcon, Cog6ToothIcon, PowerIcon,KeyIcon, Bars2Icon, ShieldExclamationIcon, ShieldCheckIcon,
-
+  ChevronDownIcon,
+  Cog6ToothIcon,
+  PowerIcon,
+  KeyIcon,
+  Bars2Icon,
+  ShieldExclamationIcon,
+  ShieldCheckIcon,
 } from "@heroicons/react/24/solid";
-
 
 // profile menu component
 
@@ -148,8 +161,9 @@ function ProfileMenu() {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-              }`}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
           />
         </Button>
       </MenuHandler>
@@ -163,10 +177,11 @@ function ProfileMenu() {
                 handleMenuAction({ route, action });
                 closeMenu();
               }}
-              className={`flex items-center gap-2 rounded ${isLastItem
-                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                : ""
-                }`}
+              className={`flex items-center gap-2 rounded ${
+                isLastItem
+                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                  : ""
+              }`}
             >
               {React.createElement(icon, {
                 className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
@@ -188,7 +203,6 @@ function ProfileMenu() {
   );
 }
 
-
 function StaffListMenu() {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = React.useState(false);
@@ -198,17 +212,27 @@ function StaffListMenu() {
         <Button
           variant="text"
           className="flex items-center gap-3 text-base font-normal capitalize tracking-normal"
-        >Staff</Button>
+        >
+          Staff
+        </Button>
       </MenuHandler>
       <MenuList>
-        <MenuItem variant="small"
+        <MenuItem
+          variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
-          onClick={() => navigate('/staff/add')} >Add Staff</MenuItem>
-        <MenuItem variant="small"
+          onClick={() => navigate("/staff/add")}
+        >
+          Add Staff
+        </MenuItem>
+        <MenuItem
+          variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
-          onClick={() => navigate('/staff/view')} >View Staff</MenuItem>
+          onClick={() => navigate("/staff/view")}
+        >
+          View Staff
+        </MenuItem>
       </MenuList>
     </Menu>
   );
@@ -222,17 +246,27 @@ function DeptListMenu() {
         <Button
           variant="text"
           className="flex items-center gap-3 text-base font-normal capitalize tracking-normal"
-        >Department</Button>
+        >
+          Department
+        </Button>
       </MenuHandler>
       <MenuList>
-        <MenuItem variant="small"
+        <MenuItem
+          variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
-          onClick={() => navigate('/dept/add')} >Add Dept</MenuItem>
-        <MenuItem variant="small"
+          onClick={() => navigate("/dept/add")}
+        >
+          Add Dept
+        </MenuItem>
+        <MenuItem
+          variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
-          onClick={() => navigate('/dept/view')} >View Dept</MenuItem>
+          onClick={() => navigate("/dept/view")}
+        >
+          View Dept
+        </MenuItem>
       </MenuList>
     </Menu>
   );
@@ -247,17 +281,27 @@ function RoomListMenu() {
         <Button
           variant="text"
           className="flex items-center gap-3 text-base font-normal capitalize tracking-normal"
-        >Room</Button>
+        >
+          Room
+        </Button>
       </MenuHandler>
       <MenuList>
-        <MenuItem variant="small"
+        <MenuItem
+          variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
-          onClick={() => navigate('/room/add')} >Add Room</MenuItem>
-        <MenuItem variant="small"
+          onClick={() => navigate("/room/add")}
+        >
+          Add Room
+        </MenuItem>
+        <MenuItem
+          variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
-          onClick={() => navigate('/room/view')} >View Room</MenuItem>
+          onClick={() => navigate("/room/view")}
+        >
+          View Room
+        </MenuItem>
       </MenuList>
     </Menu>
   );
@@ -267,12 +311,12 @@ const navListItems = [
   {
     label: "Duty Request",
     icon: ShieldExclamationIcon,
-    route: "/duty/request"
+    route: "/duty/request",
   },
   {
     label: "Approved Request",
     icon: ShieldCheckIcon,
-    route: "/view/admin/approved"
+    route: "/view/admin/approved",
   },
 ];
 
@@ -315,7 +359,7 @@ export function NavbarAdmin() {
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false),
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
 
