@@ -29,21 +29,12 @@ function AddRoom() {
         clearForm("room-form");
       })
       .catch((error) => {
-        if (error.response.data.error === "Room already exists") {
-          toast.error("Room already exists", {
-            position: "top-center",
-            autoClose: 1000,
-            closeButton: false,
-            style: { borderRadius: "100px" },
-          });
-        } else {
-          toast.error("Error adding room", {
-            position: "top-center",
-            autoClose: 1000,
-            closeButton: false,
-            style: { borderRadius: "100px" },
-          });
-        }
+        toast.error(error.response?.data?.error, {
+          position: "top-center",
+          autoClose: 1000,
+          closeButton: false,
+          style: { borderRadius: "100px" },
+        });
         console.log("error", error.response.data);
       });
   };

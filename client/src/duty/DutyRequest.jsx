@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { Input, Button } from "@material-tailwind/react";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
-import clearForm from "../helpers/clearForm";
+import clearForm from "../utils/clearForm";
 
 function DutyRequest() {
   const {
