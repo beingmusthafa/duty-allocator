@@ -255,7 +255,7 @@ app.post("/update-password", async (req, res) => {
 
 // add staff
 app.post("/staff/add", async (req, res) => {
-  const { fName, lName, phNumber, email, password, designation, dept, role } =
+  const { fName, lName, phNumber, email, password, designation, dept } =
     req.body;
 
   try {
@@ -275,7 +275,6 @@ app.post("/staff/add", async (req, res) => {
       email,
       designation,
       dept,
-      role,
       password: hashedPassword,
     });
     await newUser.save();
