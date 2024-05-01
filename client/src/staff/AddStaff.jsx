@@ -49,6 +49,8 @@ function AddStaff() {
         toast.error("Email already exists");
       } else if (error.response.data.error === "Phone number already exists") {
         toast.error("Phone number already exists");
+      } else if (error.response.data.error === "HOD already exists") {
+        toast.error("HOD already exists");
       } else {
         toast.error("Error adding staff");
       }
