@@ -267,6 +267,11 @@ app.post("/staff/add", async (req, res) => {
     if (existingPhNumber) {
       return res.status(400).json({ error: "Phone number already exists" });
     }
+    if (designation === "hod") {
+      const hodExists = await StaffModel.findOne({ designation: "hod" });
+      if (hodExists)
+        return res.status(400).json({ error: "HOD already exists" });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new StaffModel({
       fName,
