@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import clearForm from "../utils/clearForm";
 
 function AddStaff() {
   const [deptList, setDeptList] = useState([]);
@@ -44,7 +45,7 @@ function AddStaff() {
       });
 
       toast.success("Staff added successfully");
-      clearForm();
+      clearForm("staff-form");
     } catch (error) {
       if (error.response.data.error === "Email already exists") {
         toast.error("Email already exists");
@@ -56,17 +57,17 @@ function AddStaff() {
     }
   };
 
-  const clearForm = () => {
-    //clear all form inputs
-  };
-
   return (
     <div className="">
-      <div className="max-w-lg mx-auto pl-8 pr-8 pt-4 mt-11 pb-2 bg-white shadow-md rounded-md mt-4">
+      <div className="max-w-lg mx-auto pl-8 pr-8 pt-4 pb-2 bg-white shadow-md rounded-md mt-4">
         <h2 className="text-2xl font-bold text-center mb-4 uppercase">
           Add Staff
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          id="staff-form"
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
           <div className="flex flex-col">
             <p className="text-red-500 text-sm mb-1">{errors.fName?.message}</p>
             <Input

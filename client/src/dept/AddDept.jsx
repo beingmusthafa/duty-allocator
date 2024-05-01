@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import clearForm from "../utils/clearForm";
 
 function AddDept() {
   const {
@@ -14,13 +15,6 @@ function AddDept() {
   } = useForm();
 
   const [error, setError] = useState(null);
-
-  const clearForm = () => {
-    setFormData({
-      dept: "",
-      block: "",
-    });
-  };
 
   const submit = (data) => {
     const { dept, block } = data;
@@ -34,7 +28,7 @@ function AddDept() {
           style: { borderRadius: "100px" },
         });
         console.log("successful", res.data);
-        clearForm(); // Clear the form on successful submission
+        clearForm("dept-form"); // Clear the form on successful submission
         setError(null); // Clear any previous errors
       })
       .catch((error) => {
@@ -64,7 +58,11 @@ function AddDept() {
         Add Department
       </h2>
       {error && <p className="text-red-500 text-center mb-3">{error}</p>}
-      <form onSubmit={handleSubmit(submit)} className="space-y-5">
+      <form
+        id="dept-form"
+        onSubmit={handleSubmit(submit)}
+        className="space-y-5"
+      >
         <p className="text-red-500 text-sm">{errors.dept?.message}</p>
         <Input
           {...register("dept", {

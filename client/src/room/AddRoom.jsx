@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import clearForm from "../utils/clearForm";
 
 function AddRoom() {
   const {
@@ -25,6 +26,7 @@ function AddRoom() {
           style: { borderRadius: "100px" },
         });
         console.log("successful", res.data);
+        clearForm("room-form");
       })
       .catch((error) => {
         if (error.response.data.error === "Room already exists") {
@@ -51,7 +53,11 @@ function AddRoom() {
       <h2 className="text-2xl font-bold text-center mb-4 uppercase">
         Add Room
       </h2>
-      <form onSubmit={handleSubmit(submit)} className="space-y-5">
+      <form
+        id="room-form"
+        onSubmit={handleSubmit(submit)}
+        className="space-y-5"
+      >
         <p className="text-red-500 text-sm">{errors.roomname?.message}</p>
         <Input
           {...register("roomname", {
