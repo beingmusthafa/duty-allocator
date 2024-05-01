@@ -1,65 +1,62 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './css/Log.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import "react-toastify/dist/ReactToastify.css";
+import "./css/Log.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   axios.defaults.withCredentials = true;
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:3000/login', { email, password })
-      .then(res => {
+  const onSubmit = (data) => {
+    const { email, password } = data;
+    axios
+      .post("http://localhost:3000/login", { email, password })
+      .then((res) => {
         if (res.data.Status === "Success") {
-          sessionStorage.setItem('department', res.data.department);
-          sessionStorage.setItem('fName', res.data.fName);
-          sessionStorage.setItem('lName', res.data.lName);
-          sessionStorage.setItem('email', res.data.email);
-          sessionStorage.setItem('id', res.data.id);
+          sessionStorage.setItem("department", res.data.department);
+          sessionStorage.setItem("fName", res.data.fName);
+          sessionStorage.setItem("lName", res.data.lName);
+          sessionStorage.setItem("email", res.data.email);
+          sessionStorage.setItem("id", res.data.id);
           if (res.data.role === "admin") {
-            navigate('/view/admin/approved');
+            navigate("/view/admin/approved");
           } else if (res.data.role === "hod") {
-            navigate('/duty/approve');
+            navigate("/duty/approve");
           } else {
-            navigate('/');
+            navigate("/");
           }
         } else {
-          toast.error('Invalid email or password. Please try again.', {
+          toast.error("Invalid email or password. Please try again.", {
             position: "top-center",
             autoClose: 3000,
             closeButton: false,
-            style: { borderRadius: "100px" }
+            style: { borderRadius: "100px" },
           });
         }
         console.log(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
-        toast.error('Error logging in. Please try again later.', {
+        toast.error("Error logging in. Please try again later.", {
           position: "top-center",
           autoClose: 3000,
           closeButton: false,
-          style: { borderRadius: "100px" }
+          style: { borderRadius: "100px" },
         });
       });
   };
@@ -77,18 +74,36 @@ function Login() {
             <div className="col-md-6 col-lg-4">
               <div className="login-wrap p-0">
                 <h3 className="mb-4 text-center">Login</h3>
-                <form id="login-form" onSubmit={handleSubmit} className="signin-form">
+                <form
+                  id="login-form"
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="signin-form font-semibold"
+                >
                   <div className="form-group">
-                    <input type="text" className="form-control-login" placeholder="Email" required onChange={handleEmailChange} />
+                    <p className="text-red-500">{errors.email?.message}</p>
+                    <input
+                      {...register("email", {
+                        required: "Enter your email",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address",
+                        },
+                      })}
+                      type="text"
+                      className="form-control-login"
+                      placeholder="Email"
+                    />
                   </div>
                   <div className="form-group password-input">
+                    <p className="text-red-500">{errors.password?.message}</p>
                     <input
+                      {...register("password", {
+                        required: "Enter your password",
+                      })}
                       id="password-field"
                       type={showPassword ? "text" : "password"}
                       className="form-control-login"
                       placeholder="Password"
-                      required
-                      onChange={handlePasswordChange}
                     />
                     <FontAwesomeIcon
                       icon={showPassword ? faEyeSlash : faEye}
@@ -97,7 +112,12 @@ function Login() {
                     />
                   </div>
                   <div className="form-group">
-                    <button type="submit" className="form-control-login btn-login btn-login-primary submit px-3">Log In</button>
+                    <button
+                      type="submit"
+                      className="form-control-login btn-login btn-login-primary submit px-3"
+                    >
+                      Log In
+                    </button>
                   </div>
                 </form>
               </div>
