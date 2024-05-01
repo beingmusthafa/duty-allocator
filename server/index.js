@@ -188,36 +188,34 @@ app.get("/adminDash", verifyAdmin, (req, res) => {
 });
 
 //Login
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  StaffModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      bcrypt.compare(password, user.password, (err, response) => {
-        if (response) {
-          const token = jwt.sign(
-            { email: user.email, designation: user.designation },
-            "My-Secret-Key",
-            { expiresIn: "1d" }
-          );
-          res.cookie("token", token);
-          req.session.department = user.dept;
-          req.session.email = user.email;
-          req.session.fName = user.fName;
-          req.session.lName = user.lName;
-          // req.session.id = user.id;
-          return res.json({
-            Status: "Success",
-            id: user._id,
-            designation: user.designation,
-            department: user.dept,
-            email: user.email,
-            fName: user.fName,
-            lName: user.lName,
-          });
-        } else {
-          return res.json("Password doesnt match");
-        }
+app.post("/login", async (req, res) => {
+  const { email, password, role } = req.body;
+  const user = await StaffModel.findOne({ email, designation: role });
+  if (!user) return res.status(400).json("Wrong Credentials");
+  bcrypt.compare(password, user.password, (err, response) => {
+    if (response) {
+      const token = jwt.sign(
+        { email: user.email, designation: user.designation },
+        "My-Secret-Key",
+        { expiresIn: "1d" }
+      );
+      res.cookie("token", token);
+      req.session.department = user.dept;
+      req.session.email = user.email;
+      req.session.fName = user.fName;
+      req.session.lName = user.lName;
+      // req.session.id = user.id;
+      return res.json({
+        Status: "Success",
+        id: user._id,
+        designation: user.designation,
+        department: user.dept,
+        email: user.email,
+        fName: user.fName,
+        lName: user.lName,
       });
+    } else {
+      return res.json("Password doesnt match");
     }
   });
 });

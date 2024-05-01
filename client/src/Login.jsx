@@ -10,6 +10,8 @@ import "./css/Log.css";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [role, setRole] = useState("admin");
+  console.log(role);
   const navigate = useNavigate();
   const {
     register,
@@ -25,7 +27,7 @@ function Login() {
   const onSubmit = (data) => {
     const { email, password } = data;
     axios
-      .post("http://localhost:3000/login", { email, password })
+      .post("http://localhost:3000/login", { email, password, role })
       .then((res) => {
         if (res.data.Status === "Success") {
           sessionStorage.setItem("department", res.data.department);
@@ -73,7 +75,34 @@ function Login() {
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-4">
               <div className="login-wrap p-0">
-                <h3 className="mb-4 text-center">Login</h3>
+                <div className="flex gap-2 mb-4 p-2 px-4 rounded-full bg-white text-black items-center">
+                  <p className="font-semibold">Login as: </p>
+                  <input
+                    checked={role === "hod"}
+                    value="hod"
+                    type="radio"
+                    id="role-hod"
+                    name="role"
+                    label="HOD"
+                    onChange={(e) =>
+                      e.target.checked && setRole(e.target.value)
+                    }
+                  />
+                  <label htmlFor="role-hod">HOD</label>
+                  <input
+                    checked={role === "admin"}
+                    onChange={(e) =>
+                      e.target.checked && setRole(e.target.value)
+                    }
+                    value="admin"
+                    type="radio"
+                    id="role-admin"
+                    name="role"
+                    label="Admin"
+                    defaultChecked
+                  />
+                  <label htmlFor="role-admin">Admin</label>
+                </div>
                 <form
                   id="login-form"
                   onSubmit={handleSubmit(onSubmit)}
