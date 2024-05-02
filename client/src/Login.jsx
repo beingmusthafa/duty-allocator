@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,6 +62,9 @@ function Login() {
         });
       });
   };
+  useLayoutEffect(() => {
+    document.body.style.backgroundImage = "url('./assets/loginpage.jpg')";
+  }, []);
 
   return (
     <div className="background-image-login">
