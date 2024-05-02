@@ -24,12 +24,12 @@ app.use(
   })
 );
 
-morgan.token("req-body", (req) => JSON.stringify(req.body));
-app.use(
-  morgan(
-    ":method :url :status :res[content-length] - :response-time ms :req-body"
-  )
-);
+// morgan.token("req-body", (req) => JSON.stringify(req.body));
+// app.use(
+//   morgan(
+//     ":method :url :status :res[content-length] - :response-time ms :req-body"
+//   )
+// );
 app.use(
   session({
     secret: "My-Secret-Key",
@@ -44,16 +44,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 
-const transporter = nodemailer.createTransport("SMTP", {
-  host: "smtp-mail.outlook.com",
-  port: 587,
-  secure: false, // true for 465, false for other ports
+const transporter = nodemailer.createTransport({
+  service: "gmail",
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
-  },
-  tls: {
-    ciphers: "SSLv3",
   },
 });
 
