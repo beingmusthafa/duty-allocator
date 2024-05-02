@@ -135,10 +135,10 @@ function ViewApprovedHod() {
                 Exam Hall: {request.hall}
               </Typography>
               <Typography color="gray" className="mb-2">
-                Exam Date: {request.date}
+                Exam Date: {request.requestDate}
               </Typography>
               <Typography color="gray" className="mb-2">
-                Exam Time: {request.time}
+                Exam Time: {request.requestTime}
               </Typography>
               <Typography color="gray" className="mb-2">
                 Approved By: {request.hodFirstName} {request.hodLastName}
