@@ -116,7 +116,7 @@ function DutyRequest() {
           {...register("examName", {
             required: "Enter exam name",
             minLength: { value: 2, message: "Name too short" },
-            maxLength: { value: 15, message: "Name too long" },
+            maxLength: { value: 50, message: "Name too long" },
           })}
           type="text"
           label="Exam Name"
