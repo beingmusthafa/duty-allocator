@@ -44,13 +44,16 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 
-const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport("SMTP", {
   host: "smtp-mail.outlook.com",
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
+  },
+  tls: {
+    ciphers: "SSLv3",
   },
 });
 
