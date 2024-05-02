@@ -66,7 +66,7 @@ function Login() {
   return (
     <div className="background-image-login">
       <section className="ftco-section-login">
-        <div className="container-login" style={{ paddingTop: "50px" }}>
+        <div className="container-login">
           <div className="row justify-content-center">
             <div className="col-md-6 text-center mb-5">
               <h2 className="heading-section-login">DUTY ALLOCATOR</h2>

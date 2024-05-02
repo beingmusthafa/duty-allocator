@@ -139,6 +139,11 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
+        <p className="text-center font-semibold p-2">
+          {sessionStorage.getItem("fName") +
+            " " +
+            sessionStorage.getItem("lName")}
+        </p>
         {profileMenuItems.map(({ label, icon, route, action }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (

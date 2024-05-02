@@ -293,6 +293,47 @@ app.get("/staff/view", (req, res) => {
     .then((rooms) => res.json(rooms))
     .catch((err) => res.json(err.response.data));
 });
+
+app.get("/staff/get-for-duty/:dept/:date", async (req, res) => {
+  try {
+    const { dept } = req.params;
+    const date = req.params.date?.replace(/\_/g, "/");
+    const dateParts = date.split("/"); // Split the date string into day, month, and year parts
+    const day = parseInt(dateParts[0], 10); // Parse the day part as an integer
+    const month = parseInt(dateParts[1], 10) - 1; // Parse the month part as an integer (subtract 1 because months are zero-indexed)
+    const year = parseInt(dateParts[2], 10); // Parse the year part as an integer
+    const currDate = new Date(year, month, day); // Create a new Date object using the parsed day, month, and year
+    currDate.setDate(currDate.getDate() - 1); // Decrease the date by one day
+    const prevDate = currDate.toLocaleDateString("en-GB"); // Format the date to "DD/MM/YYYY" format
+    console.log({ dept, date, currDate, prevDate });
+
+    const duties = await DutyApproval.find(
+      {
+        department: dept,
+        requestDate: { $in: [date, prevDate] },
+      },
+      { selectedTeachers: 1 }
+    );
+    console.log("duties:", duties);
+    const teachersMails = new Set();
+    duties.forEach((duty) => {
+      duty.selectedTeachers.forEach((teacher) => {
+        teachersMails.add(teacher.email);
+      });
+    });
+    console.log("mails:", [...teachersMails]);
+    const staff = await StaffModel.find({
+      dept,
+      designation: { $nin: ["hod", "admin"] },
+      email: { $nin: [...teachersMails] },
+    });
+    // console.log(staff);
+    res.json(staff);
+  } catch (error) {
+    console.log(error);
+    res.json({ error: error.message });
+  }
+});
 app.post("/dept/add", async (req, res) => {
   try {
     const { dept } = req.body;

@@ -63,7 +63,7 @@ function AddRoom() {
         <Input
           {...register("seats", {
             required: "Enter no. of seats",
-            max: { value: 30, message: "Exceeds limit of 30" },
+            max: { value: 60, message: "Exceeds limit of 60" },
             validate: (value) => value >= 4 || "Should be minimum 4",
           })}
           type="number"

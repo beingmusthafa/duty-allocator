@@ -34,8 +34,11 @@ function StaffApprove() {
 
   useEffect(() => {
     fetchRequestData();
-    fetchStaffDetails();
   }, []);
+  useEffect(() => {
+    if (!request) return;
+    fetchStaffDetails();
+  }, [request]);
 
   const fetchRequestData = async () => {
     try {
@@ -50,17 +53,17 @@ function StaffApprove() {
   console.log(dutyrequest);
   const fetchStaffDetails = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/staff/view");
+      const response = await axios.get(
+        `http://localhost:3000/staff/get-for-duty/${department}/${request.requestDate.replace(
+          /\//g,
+          "_"
+        )}`
+      );
       setStaffList(response.data);
     } catch (error) {
       console.error("Error fetching staff details:", error);
     }
   };
-
-  // Filter staff based on department
-  const departmentStaff = staffList.filter(
-    (staff) => staff.dept === department && staff.designation !== "hod"
-  );
 
   const handleStaffSelect = (staffId) => {
     setSelectedStaff((prevSelectedStaff) => {
@@ -101,7 +104,7 @@ function StaffApprove() {
     axios
       .post("http://localhost:3000/send-email", {
         selectedTeachers: selectedStaff.map((staffId) => {
-          const selectedStaffDetails = departmentStaff.find(
+          const selectedStaffDetails = staffList.find(
             (staff) => staff._id === staffId
           );
           return {
@@ -158,7 +161,7 @@ function StaffApprove() {
 
     const approvalData = {
       selectedTeachers: selectedStaff.map((staffId) => {
-        const selectedStaffDetails = departmentStaff.find(
+        const selectedStaffDetails = staffList.find(
           (staff) => staff._id === staffId
         );
         return {
@@ -346,18 +349,27 @@ function StaffApprove() {
                     className="flex flex-col"
                     style={{ maxHeight: "270px", overflowY: "auto" }}
                   >
-                    {departmentStaff.map((staff) => (
-                      <div key={staff._id} className="flex items-center gap-4 ">
-                        <Checkbox
-                          checked={selectedStaff.includes(staff._id)}
-                          color="orange"
-                          onChange={() => handleStaffSelect(staff._id)}
-                        />
-                        <Typography className="font-normal">
-                          {staff.fName} {staff.lName}
-                        </Typography>
-                      </div>
-                    ))}
+                    {staffList.length > 0 ? (
+                      staffList.map((staff) => (
+                        <div
+                          key={staff._id}
+                          className="flex items-center gap-4 "
+                        >
+                          <Checkbox
+                            checked={selectedStaff.includes(staff._id)}
+                            color="orange"
+                            onChange={() => handleStaffSelect(staff._id)}
+                          />
+                          <Typography className="font-normal">
+                            {staff.fName} {staff.lName}
+                          </Typography>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="font-semibold text-center mb-4 text-sm w-44 mx-auto text-gray-200">
+                        No staff found
+                      </p>
+                    )}
                   </div>
                 </CardBody>
                 <CardFooter className="mt-4 p-0">
@@ -367,7 +379,7 @@ function StaffApprove() {
                       <span className="text-xl font-bold">
                         {request.numberOfTeachers - selectedStaff.length}
                       </span>{" "}
-                      more teachers to approve this request.
+                      more staff to approve this request.
                     </p>
                   )}
                   <Button
