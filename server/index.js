@@ -266,7 +266,7 @@ app.post("/staff/add", async (req, res) => {
       return res.status(400).json({ error: "Phone number already exists" });
     }
     if (designation === "hod") {
-      const hodExists = await StaffModel.findOne({ designation: "hod" });
+      const hodExists = await StaffModel.findOne({ dept, designation: "hod" });
       if (hodExists)
         return res.status(400).json({ error: "HOD already exists" });
     }
