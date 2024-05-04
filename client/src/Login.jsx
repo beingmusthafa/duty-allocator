@@ -62,9 +62,6 @@ function Login() {
         });
       });
   };
-  useLayoutEffect(() => {
-    document.body.style.backgroundImage = "url('./assets/loginpage.jpg')";
-  }, []);
 
   return (
     <div className="background-image-login">

@@ -1,6 +1,6 @@
-body {
+.background-image-normal {
   background-image: url("./assets/website-background.jpg");
   background-size: cover;
   background-position: center;
-  background-repeat: repeat-y;
+  background-repeat: repeat;
 }
