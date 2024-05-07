@@ -63,7 +63,7 @@ function DutyRequest() {
     const min = Number(time.split(":")[1]);
     const requestTime = `${hour > 12 ? hour - 12 : hour}:${
       time.split(":")[1]
-    }:00 ${hour > 12 && min !== 0 ? "PM" : hour <= 12 ? "PM" : "AM"}`;
+    }:00 ${hour > 12 && min !== 0 ? "PM" : hour < 12 ? "AM" : "PM"}`;
     const formDataWithFormattedDate = {
       examName,
       hall,
