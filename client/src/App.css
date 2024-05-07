@@ -1,7 +1,3 @@
-body {
-  min-height: 100vh;
-}
-
 .background-image-normal {
   background-image: url("./assets/website-background.jpg");
   background-size: cover;
